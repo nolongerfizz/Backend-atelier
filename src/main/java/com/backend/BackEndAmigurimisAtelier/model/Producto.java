@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 // Tabla
 @Entity // Crear tabla en base de datos
 @Table(name = "producto") // Asignar nombre para la tabla
-public class ProductoModel {
+public class Producto {
 
     // Attributes
     @Id // Asignar nuestro atributo idProducto como primary key
@@ -17,10 +17,10 @@ public class ProductoModel {
 
     // Constructors
 
-    public ProductoModel() {
+    public Producto() {
     }
 
-    public ProductoModel(Long idProducto, String nombre, Double precio, Boolean empaqueEspecial) {
+    public Producto(Long idProducto, String nombre, Double precio, Boolean empaqueEspecial) {
         this.idProducto = idProducto;
         this.nombre = nombre;
         this.precio = precio;
