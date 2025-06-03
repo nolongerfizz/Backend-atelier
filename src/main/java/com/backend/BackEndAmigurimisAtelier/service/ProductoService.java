@@ -1,35 +1,58 @@
 package com.backend.BackEndAmigurimisAtelier.service;
 
 import com.backend.BackEndAmigurimisAtelier.model.Producto;
+import com.backend.BackEndAmigurimisAtelier.repository.IProductoRepository;
 import com.backend.BackEndAmigurimisAtelier.serviceInterface.IProductoService;
+import jakarta.persistence.Id;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
+@Service
 public class ProductoService implements IProductoService {
 
-    @Override
-    public List<Producto> getAllPosts() {
-        return List.of();
+    private final IProductoRepository productoRepository;
+
+    public ProductoService(IProductoRepository productoRepository) {
+        this.productoRepository = productoRepository;
     }
 
     @Override
-    public Producto getPostById(Long id) {
-        return null;
+    public List<Producto> obtenerTodosProductos() {
+        return productoRepository.findAll();
     }
 
     @Override
-    public void saveProducto(Producto producto) {
+    public Producto obtenerProductoId(Long id) {
+        return productoRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void guardarProducto(Producto producto) {
+        productoRepository.save(producto);
 
     }
 
     @Override
-    public void deleteProducto(Long Id) {
+    public void eliminarProducto(Long Id) {
+        productoRepository.deleteById(Id);
 
     }
 
     @Override
-    public void editProducto(Long id, Producto productoActualizado) {
+    public void editarProducto(Long id, Producto productoActualizado) {
+
+        Producto producto = productoRepository.findById(id).orElse(null);
+
+        if(producto != null){
+            producto.setNombre(productoActualizado.getNombre());
+            producto.setPrecio(productoActualizado.getPrecio());
+            producto.setTamaño(productoActualizado.getTamaño());
+
+            productoRepository.save(producto);
+        } else {
+            throw new RuntimeException(("No existe el producto con id: " + id));
+        }
 
     }
 }
