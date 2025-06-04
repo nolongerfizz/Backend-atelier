@@ -7,7 +7,7 @@ import java.util.List;
 public interface IDetallePedidoService {
     List<DetallePedido> obtenerTodosLosDetallesPedido();
     DetallePedido obtenerDetallePedidoPorId(Long id);
-    DetallePedido crearDetallePedido(DetallePedido detallePedido); // <-- MAKE SURE THIS IS HERE
+    DetallePedido crearDetallePedido(DetallePedido detallePedido);
     DetallePedido actualizarDetallePedido(Long id, DetallePedido detallePedido);
     void eliminarDetallePedido(Long id);
 }
