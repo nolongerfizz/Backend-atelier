@@ -1,14 +1,11 @@
 package com.backend.BackEndAmigurimisAtelier.model;
 
-
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class Usuario {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,9 +21,21 @@ public class Usuario {
     @Column(nullable = false)
     private String contraseña;
 
+    @ManyToOne
+    @JoinColumn(name = "idRol")
+    private Rol rol;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Carrito> carritos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Pedido> pedidos = new ArrayList<>();
+
+    // Constructor vacío
     public Usuario() {
     }
 
+    // Constructor con campos
     public Usuario(Long idUsuario, String nombre, String correo, String telefono, String contraseña, Rol rol, List<Carrito> carritos, List<Pedido> pedidos) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
@@ -37,6 +46,8 @@ public class Usuario {
         this.carritos = carritos;
         this.pedidos = pedidos;
     }
+
+    // Getters y Setters
 
     public Long getIdUsuario() {
         return idUsuario;
@@ -101,16 +112,5 @@ public class Usuario {
     public void setPedidos(List<Pedido> pedidos) {
         this.pedidos = pedidos;
     }
-
-    @ManyToOne
-    @JoinColumn(name = "idRol")
-    private Rol rol;
-
-    @OneToMany(mappedBy = "usuario")
-    private List<Carrito> carritos = new ArrayList<>();
-
-    @OneToMany(mappedBy = "usuario")
-    private List<Pedido> pedidos = new ArrayList<>();
-
-
 }
+
