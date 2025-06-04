@@ -1,6 +1,7 @@
 package com.backend.BackEndAmigurimisAtelier.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -27,14 +28,13 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(Long idUsuario, String nombre, String correo, String telefono, String contraseña, Rol rol, List<Carrito> carritos, List<Pedido> pedidos) {
+    public Usuario(Long idUsuario, String nombre, String correo, String telefono, String contraseña, Rol rol, List<Pedido> pedidos) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.correo = correo;
         this.telefono = telefono;
         this.contraseña = contraseña;
         this.rol = rol;
-        this.carritos = carritos;
         this.pedidos = pedidos;
     }
 
@@ -86,14 +86,6 @@ public class Usuario {
         this.rol = rol;
     }
 
-    public List<Carrito> getCarritos() {
-        return carritos;
-    }
-
-    public void setCarritos(List<Carrito> carritos) {
-        this.carritos = carritos;
-    }
-
     public List<Pedido> getPedidos() {
         return pedidos;
     }
@@ -102,12 +94,21 @@ public class Usuario {
         this.pedidos = pedidos;
     }
 
+    public Carrito getCarrito() {
+        return carrito;
+    }
+
+    public void setCarrito(Carrito carrito) {
+        this.carrito = carrito;
+    }
+
     @ManyToOne
     @JoinColumn(name = "idRol")
     private Rol rol;
 
-    @OneToMany(mappedBy = "usuario")
-    private List<Carrito> carritos = new ArrayList<>();
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private Carrito carrito;
 
     @OneToMany(mappedBy = "usuario")
     private List<Pedido> pedidos = new ArrayList<>();

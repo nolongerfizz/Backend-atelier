@@ -1,6 +1,7 @@
 package com.backend.BackEndAmigurimisAtelier.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -66,8 +67,9 @@ public class Carrito {
         this.detalles = detalles;
     }
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "idUsuario")
+    @JsonManagedReference
     private Usuario usuario;
 
     @OneToMany(mappedBy = "carrito")

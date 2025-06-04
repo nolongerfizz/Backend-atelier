@@ -4,6 +4,7 @@ import com.backend.BackEndAmigurimisAtelier.model.Producto;
 import com.backend.BackEndAmigurimisAtelier.repository.IProductoRepository;
 import com.backend.BackEndAmigurimisAtelier.serviceInterface.IProductoService;
 import jakarta.persistence.Id;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 public class ProductoService implements IProductoService {
 
     private final IProductoRepository productoRepository;
-
+    @Autowired
     public ProductoService(IProductoRepository productoRepository) {
         this.productoRepository = productoRepository;
     }
