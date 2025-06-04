@@ -38,7 +38,7 @@ public class Usuario {
         this.pedidos = pedidos;
     }
 
-    public Long getIdUsuario() {
+    public Long getIdUsuario(Long idUsuario) {
         return idUsuario;
     }
 
