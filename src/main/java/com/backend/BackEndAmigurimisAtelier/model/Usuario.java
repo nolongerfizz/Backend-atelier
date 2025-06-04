@@ -1,6 +1,5 @@
 package com.backend.BackEndAmigurimisAtelier.model;
 
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
@@ -9,7 +8,6 @@ import java.util.List;
 
 @Entity
 public class Usuario {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +22,17 @@ public class Usuario {
 
     @Column(nullable = false)
     private String contraseña;
+
+    @ManyToOne
+    @JoinColumn(name = "idRol")
+    private Rol rol;
+
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private Carrito carrito;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Pedido> pedidos = new ArrayList<>();
 
     public Usuario() {
     }
@@ -101,17 +110,4 @@ public class Usuario {
     public void setCarrito(Carrito carrito) {
         this.carrito = carrito;
     }
-
-    @ManyToOne
-    @JoinColumn(name = "idRol")
-    private Rol rol;
-
-    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
-    @JsonBackReference
-    private Carrito carrito;
-
-    @OneToMany(mappedBy = "usuario")
-    private List<Pedido> pedidos = new ArrayList<>();
-
-
 }

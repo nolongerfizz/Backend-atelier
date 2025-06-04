@@ -1,6 +1,7 @@
 package com.backend.BackEndAmigurimisAtelier.model;
 
 import jakarta.persistence.*;
+@Entity
 
 @Entity
 public class DetallePedido {
