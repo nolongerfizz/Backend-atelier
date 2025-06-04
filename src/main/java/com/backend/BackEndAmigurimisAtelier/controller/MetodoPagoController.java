@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/metodoPago")
+@RequestMapping("/api/metodoPago")
 @CrossOrigin(origins = "*")
 public class MetodoPagoController {
 
@@ -36,4 +36,5 @@ public class MetodoPagoController {
         metodoPagoService.eliminar(id);
     }
 }
+
 
