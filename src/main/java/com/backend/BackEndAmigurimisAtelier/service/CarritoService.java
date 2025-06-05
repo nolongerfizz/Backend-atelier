@@ -70,7 +70,7 @@ public class CarritoService implements ICarritoService {
                 carrito.setUsuario(usuario);
                 usuario.setCarrito(carrito);
 
-                usuarioRepository.save(usuario); // Guardar la relación
+                carritoRepository.save(carrito);
             } else {
                 if (usuarioOptional.isEmpty()) {
                     throw new RuntimeException("Usuario no encontrado con ID " + idUsuario);
