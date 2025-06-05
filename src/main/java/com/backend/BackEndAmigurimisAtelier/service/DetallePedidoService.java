@@ -4,11 +4,12 @@ import com.backend.BackEndAmigurimisAtelier.model.DetallePedido;
 import com.backend.BackEndAmigurimisAtelier.repository.IDetallePedidoRepository;
 import com.backend.BackEndAmigurimisAtelier.serviceInterface.IDetallePedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-
+@Service
 public class DetallePedidoService implements IDetallePedidoService {
 
     @Autowired
