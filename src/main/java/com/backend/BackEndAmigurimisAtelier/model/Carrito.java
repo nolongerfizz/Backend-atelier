@@ -73,6 +73,7 @@ public class Carrito {
     private Usuario usuario;
 
     @OneToMany(mappedBy = "carrito")
+    @JsonManagedReference
     private List<DetalleCarrito> detalles = new ArrayList<>();
 
 

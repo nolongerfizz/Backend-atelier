@@ -1,5 +1,6 @@
 package com.backend.BackEndAmigurimisAtelier.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -87,8 +88,10 @@ public class Producto {
     }
 
     @OneToMany(mappedBy = "producto")
+    @JsonManagedReference
     private List<DetalleCarrito> detallesCarrito = new ArrayList<>();
 
     @OneToMany(mappedBy = "producto")
+    @JsonManagedReference
     private List<DetallePedido> detallesPedido = new ArrayList<>();
 }

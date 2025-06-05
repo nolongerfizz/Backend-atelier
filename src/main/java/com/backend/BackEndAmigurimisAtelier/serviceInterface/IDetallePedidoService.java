@@ -10,4 +10,6 @@ public interface IDetallePedidoService {
     DetallePedido crearDetallePedido(DetallePedido detallePedido);
     DetallePedido actualizarDetallePedido(Long id, DetallePedido detallePedido);
     void eliminarDetallePedido(Long id);
+    DetallePedido guardarDetalleParaPedido(Long idPedido, DetallePedido detalle);
+    DetallePedido agregarDetalleExistenteAPedido(Long idPedido, Long idDetalle);
 }

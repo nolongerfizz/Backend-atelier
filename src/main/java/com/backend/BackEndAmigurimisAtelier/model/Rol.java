@@ -1,6 +1,7 @@
 package com.backend.BackEndAmigurimisAtelier.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class Rol {
     private String nombreRol;
 
     @OneToMany(mappedBy = "rol")
+    @JsonManagedReference
     private List<Usuario> usuarios = new ArrayList<>();
 
     public Rol() {

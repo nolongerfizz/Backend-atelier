@@ -1,7 +1,9 @@
 package com.backend.BackEndAmigurimisAtelier.service;
 
 import com.backend.BackEndAmigurimisAtelier.model.DetallePedido;
+import com.backend.BackEndAmigurimisAtelier.model.Pedido;
 import com.backend.BackEndAmigurimisAtelier.repository.IDetallePedidoRepository;
+import com.backend.BackEndAmigurimisAtelier.repository.IPedidoRepository;
 import com.backend.BackEndAmigurimisAtelier.serviceInterface.IDetallePedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ public class DetallePedidoService implements IDetallePedidoService {
 
     @Autowired
     private IDetallePedidoRepository detallePedidoRepository;
+    @Autowired
+    private IPedidoRepository pedidoRepository;
 
     @Override
     public List<DetallePedido> obtenerTodosLosDetallesPedido() {
@@ -76,4 +80,41 @@ public class DetallePedidoService implements IDetallePedidoService {
             throw new RuntimeException("Error al eliminar el detalle del pedido con id: " + id, e);
         }
     }
+    @Override
+    public DetallePedido guardarDetalleParaPedido(Long idPedido, DetallePedido detalle) {
+        try {
+            Pedido pedido = pedidoRepository.findById(idPedido).orElse(null);
+            if (pedido == null) {
+                throw new RuntimeException("Pedido no encontrado con id: " + idPedido);
+            }
+
+            detalle.setPedido(pedido);
+            return detallePedidoRepository.save(detalle);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al guardar el detalle para el pedido con id: " + idPedido, e);
+        }
+    }
+
+    @Override
+    public DetallePedido agregarDetalleExistenteAPedido(Long idPedido, Long idDetalle) {
+        try {
+            Pedido pedido = pedidoRepository.findById(idPedido).orElse(null);
+            if (pedido == null) {
+                throw new RuntimeException("Pedido no encontrado con id: " + idPedido);
+            }
+
+            DetallePedido detalle = detallePedidoRepository.findById(idDetalle).orElse(null);
+            if (detalle == null) {
+                throw new RuntimeException("DetallePedido no encontrado con id: " + idDetalle);
+            }
+
+            detalle.setPedido(pedido);
+            return detallePedidoRepository.save(detalle);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al agregar el detalle existente al pedido con id: " + idPedido, e);
+        }
+    }
+
 }

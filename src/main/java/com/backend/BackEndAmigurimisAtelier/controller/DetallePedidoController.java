@@ -2,7 +2,9 @@ package com.backend.BackEndAmigurimisAtelier.controller;
 
 import com.backend.BackEndAmigurimisAtelier.model.DetallePedido;
 import com.backend.BackEndAmigurimisAtelier.serviceInterface.IDetallePedidoService;
+import com.backend.BackEndAmigurimisAtelier.serviceInterface.IPedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,8 @@ public class DetallePedidoController {
 
     @Autowired
     private IDetallePedidoService detallePedidoService;
+    @Autowired
+    private IPedidoService pedidoService;
 
     @GetMapping
     public ResponseEntity<List<DetallePedido>> obtenerTodosLosDetalles() {
@@ -62,6 +66,29 @@ public class DetallePedidoController {
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
+        }
+    }
+    @PostMapping("/{idPedido}/detalle/guardar")
+    public ResponseEntity<DetallePedido> guardarDetalleParaPedido(@PathVariable Long idPedido, @RequestBody DetallePedido detalle) {
+        try {
+            DetallePedido detalleGuardado = detallePedidoService.guardarDetalleParaPedido(idPedido, detalle);
+            return ResponseEntity.ok(detalleGuardado);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PutMapping("/{idPedido}/detalle/{idDetalle}/agregar")
+    public ResponseEntity<DetallePedido> agregarDetalleExistenteAPedido(@PathVariable Long idPedido, @PathVariable Long idDetalle) {
+        try {
+            DetallePedido detalleActualizado = detallePedidoService.agregarDetalleExistenteAPedido(idPedido, idDetalle);
+            return ResponseEntity.ok(detalleActualizado);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 }

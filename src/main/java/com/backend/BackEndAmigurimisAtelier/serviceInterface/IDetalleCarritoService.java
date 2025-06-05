@@ -11,4 +11,6 @@ public interface IDetalleCarritoService {
     DetalleCarrito guardar(DetalleCarrito detalleCarrito);
     void eliminar(Long id);
     void editar(Long id, DetalleCarrito detalleActualizado);
+    DetalleCarrito agregarDetalleACarrito(Long idCarrito, DetalleCarrito detalle);
+    DetalleCarrito asociarDetalleExistenteACarrito(Long idDetalle, Long idCarrito);
 }

@@ -1,6 +1,8 @@
 package com.backend.BackEndAmigurimisAtelier.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -114,13 +116,16 @@ public class Pedido {
 
     @ManyToOne
     @JoinColumn(name = "idUsuario")
+    @JsonBackReference
     private Usuario usuario;
 
     @ManyToOne
     @JoinColumn(name = "idMetodo")
+    @JsonBackReference
     private MetodoPago metodoPago;
 
     @OneToMany(mappedBy = "pedido")
+    @JsonManagedReference
     private List<DetallePedido> detalles = new ArrayList<>();
 
 }

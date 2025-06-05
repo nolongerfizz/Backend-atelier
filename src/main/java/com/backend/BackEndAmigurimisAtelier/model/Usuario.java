@@ -1,6 +1,7 @@
 package com.backend.BackEndAmigurimisAtelier.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class Usuario {
 
     @ManyToOne
     @JoinColumn(name = "idRol")
+    @JsonBackReference
     private Rol rol;
 
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
@@ -32,6 +34,7 @@ public class Usuario {
     private Carrito carrito;
 
     @OneToMany(mappedBy = "usuario")
+    @JsonManagedReference
     private List<Pedido> pedidos = new ArrayList<>();
 
     public Usuario() {

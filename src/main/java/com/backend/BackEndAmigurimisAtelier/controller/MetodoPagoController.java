@@ -1,6 +1,7 @@
 package com.backend.BackEndAmigurimisAtelier.controller;
 
 import com.backend.BackEndAmigurimisAtelier.model.MetodoPago;
+import com.backend.BackEndAmigurimisAtelier.model.Pedido;
 import com.backend.BackEndAmigurimisAtelier.serviceInterface.IMetodoPagoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,17 @@ public class MetodoPagoController {
     public void eliminar(@PathVariable Long id) {
         metodoPagoService.eliminar(id);
     }
+
+    @PutMapping("/{idPedido}/asignar/{idMetodoPago}")
+    public Pedido asignarMetodoPago(@PathVariable Long idPedido, @PathVariable Long idMetodoPago) {
+        return metodoPagoService.asignarMetodoPagoAPedido(idPedido, idMetodoPago);
+    }
+
+    @PutMapping("/{idPedido}/cambiar/{idMetodoPago}")
+    public Pedido cambiarMetodoPago(@PathVariable Long idPedido, @PathVariable Long idMetodoPago) {
+        return metodoPagoService.cambiarMetodoPagoDePedido(idPedido, idMetodoPago);
+    }
+
 }
 
 

@@ -1,6 +1,7 @@
 package com.backend.BackEndAmigurimisAtelier.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -109,10 +110,12 @@ public class DetalleCarrito {
 
     @ManyToOne
     @JoinColumn(name = "idCarrito")
+    @JsonBackReference
     private Carrito carrito;
 
     @ManyToOne
     @JoinColumn(name = "idProducto")
+    @JsonBackReference
     private Producto producto;
 
 }
