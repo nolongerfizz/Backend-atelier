@@ -31,6 +31,11 @@ public class CarritoController {
     public Carrito guardarCarritoParaUsuario(@PathVariable Long idUsuario, @RequestBody Carrito carrito) {
         return carritoService.guardarCarritoParaUsuario(idUsuario, carrito);
     }
+    //Asignar un carrito existente a usuario
+    @PutMapping("/asignar/{idCarrito}/usuario/{idUsuario}")
+    public void asignarCarritoAUsuario(@PathVariable Long idCarrito, @PathVariable Long idUsuario) {
+        carritoService.asignarCarritoAUsuario(idUsuario, idCarrito);
+    }
 
     // Actualizar carrito por ID
     @PutMapping("/actualizar/{id}")
