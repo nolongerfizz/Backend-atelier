@@ -18,42 +18,57 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     public List<Usuario> obtenerTodosUsuarios() {
-        return usuarioRepository.findAll();
+        try {
+            return usuarioRepository.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener los usuarios", e);
+        }
     }
 
     @Override
     public Usuario obtenerUsuarioId(Long id) {
-        return usuarioRepository.findById(id).orElse(null);
+        try {
+            return usuarioRepository.findById(id).orElse(null);
+        } catch (Exception e) {
+            throw new RuntimeException("Error al buscar usuario", e);
+        }
     }
 
     @Override
     public void guardarUsuario(Usuario usuario) {
-        usuarioRepository.save(usuario);
-
+        try {
+            usuarioRepository.save(usuario);
+        } catch (Exception e) {
+            throw new RuntimeException("Error al guardar el usuario", e);
+        }
     }
 
     @Override
-    public void eliminarUsuario(Long Id) {
-        usuarioRepository.deleteById(Id);
-
+    public void eliminarUsuario(Long id) {
+        try {
+            usuarioRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Error al eliminar el usuario", e);
+        }
     }
 
     @Override
     public void editarUsuario(Long id, Usuario usuarioActualizado) {
-        Usuario usuario = usuarioRepository.findById(id).orElse(null);
+        try {
+            Usuario usuario = usuarioRepository.findById(id).orElse(null);
+            if (usuario != null) {
+                // Actualiza los campos con los valores nuevos
+                usuario.setNombre(usuarioActualizado.getNombre());
+                usuario.setContraseña(usuarioActualizado.getContraseña());
+                usuario.setCorreo(usuarioActualizado.getCorreo());
+                usuario.setTelefono(usuarioActualizado.getTelefono());
 
-        if(usuario != null){
-            // Actualiza los campos con los valores nuevos
-            usuario.setNombre(usuarioActualizado.getNombre());
-            usuario.setContraseña(usuarioActualizado.getContraseña());
-            usuario.setCorreo(usuarioActualizado.getCorreo());
-            usuario.setTelefono(usuarioActualizado.getTelefono());
-
-            usuarioRepository.save(usuario);
-        } else {
-            throw new RuntimeException(("No existe el usuario con id: " + id));
+                usuarioRepository.save(usuario);
+            } else {
+                throw new RuntimeException("No existe el usuario con id: " + id);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error al editar el usuario", e);
         }
     }
 }
-
-
